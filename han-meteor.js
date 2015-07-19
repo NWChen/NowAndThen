@@ -53,7 +53,6 @@ if (Meteor.isClient) {
     'click': function(e, t) {
       var l_marker = new google.maps.LatLng(marker[0], marker[1]);
       var distance = google.maps.geometry.spherical.computeDistanceBetween(l_marker, panorama.getPosition());
-      console.log(distance, maxDistance);
       if(distance<maxDistance) {
         Session.set("inRange", "inRange");
         Session.set("title", marker[2]);

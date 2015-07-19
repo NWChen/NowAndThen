@@ -2,11 +2,11 @@ Events = new Mongo.Collection("events");
 
 markers = [
   marker1 = ["40.749704", "-73.969175", "UNITED NATIONS HEADQUARTERS BUILT", "1952", "The United Nations was formulated among delegations from the Soviet Union, the US, the UK, and China. The United Nations Charter was officially ratified by the five permanent members of the council - the four aforementioned, and France. 46 other signatories were present. In 1945, the construction of the United Nations Headquarters in New York City was finally completed."],
-  marker2 = ["40.749704", "-73.969175", "UNITED NATIONS HEADQUARTERS BUILT", "1952", "The United Nations was formulated among delegations from the Soviet Union, the US, the UK, and China. The United Nations Charter was officially ratified by the five permanent members of the council - the four aforementioned, and France. 46 other signatories were present. In 1945, the construction of the United Nations Headquarters in New York City was finally completed."],
+  marker2 = ["40.748138", "-73.985881", "EMPIRE STATE BUILDING BUILT", "1945", "A B-25 Mitchell bomber aircraft accidentally crashes into the north side of the Empire State Building between the 79th and 80th floors. The Federal Torts Claim Act of 1946, and other retroactive law provisions, are established as a result."],
   marker3 = ["40.749704", "-73.969175", "UNITED NATIONS HEADQUARTERS BUILT", "1952", "The United Nations was formulated among delegations from the Soviet Union, the US, the UK, and China. The United Nations Charter was officially ratified by the five permanent members of the council - the four aforementioned, and France. 46 other signatories were present. In 1945, the construction of the United Nations Headquarters in New York City was finally completed."]
 ];
 
-maxDistance = 70;
+maxDistance = 100;
 
 geocoder = null;
 map = null;
@@ -61,12 +61,14 @@ if (Meteor.isClient) {
         var distance = google.maps.geometry.spherical.computeDistanceBetween(l_marker, panorama.getPosition());
         console.log(distance);
         if(distance<maxDistance) {
-          Session.set("inRange", "inRange");
+          console.log(distance, Session.get("inRange"));
           Session.set("title", markers[i][2]);
           Session.set("date", markers[i][3]);
           Session.set("description", markers[i][4]);
+          document.getElementById('marker').style.display = "block";
+          return false;
         } else {
-          Session.set("inRange", "");
+          document.getElementById('marker').style.display = "none";
           Session.set("title", "");
           Session.set("date", "");
           Session.set("description", "");
